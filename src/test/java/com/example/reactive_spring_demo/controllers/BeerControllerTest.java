@@ -1,5 +1,6 @@
 package com.example.reactive_spring_demo.controllers;
 
+import com.example.reactive_spring_demo.domain.Beer;
 import com.example.reactive_spring_demo.model.BeerDTO;
 import com.example.reactive_spring_demo.repositories.BeerRepositoryTest;
 import org.junit.jupiter.api.MethodOrderer;
@@ -32,6 +33,7 @@ class BeerControllerTest {
     @Autowired
     WebTestClient webTestClient;
 
+    @Order(1)
     @Test
     void testListBeers() {
         webTestClient.get().uri(beerPath)
@@ -41,6 +43,7 @@ class BeerControllerTest {
                 .expectBody().jsonPath("$.size()").isEqualTo(3);
     }
 
+    @Order(2)
     @Test
     void testGetBeerById() {
         webTestClient.get().uri(beerIdPath, 1)
@@ -76,5 +79,32 @@ class BeerControllerTest {
         webTestClient.delete().uri(beerIdPath, 1)
                 .exchange()
                 .expectStatus().isNoContent();
+    }
+
+    @Test
+    void testSaveBeerException() {
+        Beer testBeer = BeerRepositoryTest.getTestBeer();
+        testBeer.setBeerName("A");
+
+        webTestClient.post().uri(beerPath)
+                .body(Mono.just(testBeer), BeerDTO.class)
+                .header("Content-Type", "application/json")
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+    @Test
+    void testGetBeerByIdNotFound() {
+        webTestClient.get().uri(beerIdPath, 10)
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
+    @Order(1000)
+    @Test
+    void testDeleteBeerNotFound() {
+        webTestClient.delete().uri(beerIdPath, 10)
+                .exchange()
+                .expectStatus().isNotFound();
     }
 }
