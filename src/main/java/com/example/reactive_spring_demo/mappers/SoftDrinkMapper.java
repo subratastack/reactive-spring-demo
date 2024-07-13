@@ -8,5 +8,5 @@ import org.mapstruct.Mapper;
 public interface SoftDrinkMapper {
 
     SoftDrink softDrinkDtoToSoftDrink(SoftDrinkDTO dto);
-    SoftDrinkDTO softDrinkDtoToSoftDrink(SoftDrink entity);
+    SoftDrinkDTO softDrinkToSoftDrinkDto(SoftDrink entity);
 }

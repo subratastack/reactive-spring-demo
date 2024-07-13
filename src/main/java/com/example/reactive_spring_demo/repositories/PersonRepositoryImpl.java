@@ -1,9 +1,11 @@
 package com.example.reactive_spring_demo.repositories;
 
 import com.example.reactive_spring_demo.domain.Person;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Repository
 public class PersonRepositoryImpl implements PersonRepository {
 
     Person p1 = Person.builder().id(1).firstName("A").lastName("aa").build();

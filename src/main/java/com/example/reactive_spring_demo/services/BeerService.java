@@ -1,7 +1,6 @@
 package com.example.reactive_spring_demo.services;
 
 import com.example.reactive_spring_demo.model.BeerDTO;
-import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

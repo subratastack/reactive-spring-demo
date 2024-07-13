@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public class SoftDrinkDTO {
 
     private Integer id;
-    private String beerName;
-    private String beerStyle;
+    private String softDrinkName;
+    private String softDrinkStyle;
     private String upc;
     private Integer quantityOnHand;
     private BigDecimal price;
